@@ -1,0 +1,86 @@
+1. Table DEPT:
+---------------------------------
+DEPTNO(PK) DNAME
+10 AC
+---------------------------------
+
+2.Table EMP:
+---------------------------------
+EMPNO ENAME DEPTNO(FK)
+101 ROCK 10
+102 JACK 10
+103 MARK 10
+104 JERRY 10
+---------------------------------
+Q:What is the difference between the parent and child tables, and why?
+
+A1:DEPT table which will be the parent table of the EMP table.
+create table dept(  
+  deptno     number(2,0),  
+  dname      varchar2(14),  
+  loc        varchar2(13),  
+  constraint pk_dept primary key (deptno)).
+
+A2.EMP table which has a foreign key reference to the DEPT table. 
+The foreign key will require that the DEPTNO in the EMP table exist in the DEPTNO column in the DEPT table.
+create table emp(  
+  empno    number(4,0),  
+  ename    varchar2(10),  
+  job      varchar2(9),  
+  mgr      number(4,0),  
+  hiredate date,  
+  sal      number(7,2),  
+  comm     number(7,2),  
+  deptno   number(2,0),  
+  constraint pk_emp primary key (empno),  
+  constraint fk_deptno foreign key (deptno) references dept (deptno))
+
+Q2.What are the 4 components of a database system?
+The four major components of a database are hardware, software, data, procedure, and database access language.
+
+Q3. What is the distinction between SQL and SQL plus?
+SQL is the query language used for communication with Oracle server to access and modify the data. 
+SQL* Plus is a command line tool with which you can send SQL queries to the server
+
+SQL is a language which is invented by IBM.
+SQL * Plus is a tool to use SQL language for a database from Oracle corporation.
+
+SQL can be simply used to ask queries, i.e. it involves DML, DDL and DCL.
+SQL * Plus is command line tool which doesn’t involve DML, DDL and DCL.
+
+In SQL, there is no continuation character..
+Whereas, in SQL * Plus there is a continuation character.
+
+Keywords cannot be abbreviated in SQL.
+But keywords can be abbreviated in SQL*Plus.
+
+Q4. What is the definition of normalization?
+Normalization is a database design technique that reduces data redundancy and eliminates undesirable characteristics like Insertion,Update and Deletion Anomalies. ... 
+The purpose of Normalisation in SQL is to eliminate redundant (repetitive) data and ensure data is stored logically
+
+Q5. Give examples of 1NF, 2NF, 3NF, and BCNF.
+1NF:relation is in 1NF if it contains an atomic value.
+Example: Suppose a company wants to store the names and contact details of its employees. It creates a table that looks like this:
+--------------------------------------------------
+emp_id	emp_name	emp_address	emp_mobile
+101	Herschel	New Delhi	8912312390
+
+2NF:relation will be in 2NF if it is in 1NF and all non-key attributes are fully functional dependent on the primary key.
+Example:school wants to store the data of teachers and the subjects they teach. They create a table that looks like this: Since a teacher can teach more than one subjects, the table can have multiple rows for a same teacher.
+-----------------------------------
+teacher_id	subject	teacher_age
+111	Maths	38
+
+3NF:relation will be in 3NF if it is in 2NF and no transition dependency exists.
+Example:company wants to store the complete address of each employee, they create a table named employee_details that looks like this:
+----------------------------------------------------------------------------
+emp_id	emp_name	emp_zip	emp_state	emp_city	emp_district
+1001	John	282005	UP	Agra	Dayal Bagh
+
+BCNF:It is an advance version of 3NF that’s why it is also referred as 3.5NF. BCNF is stricter than 3NF.
+A table complies with BCNF if it is in 3NF and for every functional dependency X->Y, X should be the super key of the table.
+
+Example:There is a company wherein employees work in more than one department. They store the data like this:
+----------------------------------------------------------------------
+emp_id	emp_nationality	emp_dept	dept_type	dept_no_of_emp
+1001	Austrian	Production and planning	D001	200
